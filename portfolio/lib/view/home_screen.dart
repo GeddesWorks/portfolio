@@ -83,7 +83,7 @@ class HomeState extends State<Home> {
       width: 50,
     );
     Image liInLogo = Image.asset(
-      'images/Li-In-bug.png',
+      'images/linked.png',
       width: 50,
     );
     Image githubLogo = Image.asset(
