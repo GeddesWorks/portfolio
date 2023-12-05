@@ -40,9 +40,14 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double scaleFactor = screenWidth > 1200
+        ? screenWidth / 1200
+        : screenWidth > 600
+            ? screenWidth / 600
+            : screenWidth / 300;
     return Scaffold(
       backgroundColor: Colors.grey[800],
-      appBar: appBar(context),
+      appBar: appBar(context, scaleFactor),
       body: SingleChildScrollView(
         child: ContentWrapper(
           footerPadding: 16,

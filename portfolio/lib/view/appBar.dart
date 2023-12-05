@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'dart:js' as js;
 
-PreferredSizeWidget appBar(BuildContext context) {
+PreferredSizeWidget appBar(BuildContext context, double screenWidth) {
+  double scaleFactor = screenWidth / 1200;
+  double scaleFactor2 = screenWidth / 600;
   Image logo = Image.asset('images/GeddesWorksCutout.png');
-  Image youtube =
-      Image.asset('images/YouTube_dark_logo_(2017).png', width: 200);
-  Image printer = Image.asset('images/3dPrinter.png', width: 50);
+  Image youtube = Image.asset('images/YouTube_dark_logo_(2017).png',
+      width: 200 * scaleFactor2);
+  Image printer = Image.asset('images/3dPrinter.png', width: 50 * scaleFactor2);
 
   return PreferredSize(
-    preferredSize: const Size.fromHeight(80.0),
+    preferredSize: Size.fromHeight(80.0 * scaleFactor2 * 2),
     child: AppBar(
       backgroundColor: Colors.grey[600],
       elevation: 0,
@@ -23,15 +25,17 @@ PreferredSizeWidget appBar(BuildContext context) {
                 children: [
                   logo,
                   const SizedBox(width: 10),
-                  const Text(
+                  Text(
                     'Collin Geddes is GeddesWorks',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 24 * scaleFactor2,
+                        fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
             Expanded(
-              flex: 6,
+              flex: 1,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -59,7 +63,7 @@ PreferredSizeWidget appBar(BuildContext context) {
             Expanded(
               flex: 4,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
                     borderRadius: BorderRadius.circular(100),
@@ -73,7 +77,10 @@ PreferredSizeWidget appBar(BuildContext context) {
                         children: [
                           printer,
                           const SizedBox(width: 5),
-                          const Text('3D Print Shop'),
+                          Text(
+                            '3D Print Shop',
+                            style: TextStyle(fontSize: 15 * scaleFactor2),
+                          ),
                         ],
                       ),
                     ),
