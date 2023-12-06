@@ -8,12 +8,14 @@ class Header extends StatelessWidget {
   final String subtitle;
   final String location;
   final String avatarUrl;
+  final double scaleFactor;
 
   Header({
     required this.title,
     required this.subtitle,
     required this.location,
     required this.avatarUrl,
+    required this.scaleFactor,
   });
 
   @override
@@ -26,25 +28,37 @@ class Header extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 24,
+                fontSize: 24 * scaleFactor,
               ),
             ),
             Text(
               subtitle,
-              style: const TextStyle(
-                fontSize: 16,
+              style: TextStyle(
+                fontSize: 16 * scaleFactor,
               ),
             ),
             Text(
               location,
-              style: const TextStyle(
-                fontSize: 12,
+              style: TextStyle(
+                fontSize: 12 * scaleFactor,
               ),
             ),
             const SizedBox(height: 20),
-            CustomAvatar(image: avatarUrl),
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: AssetImage(
+                      avatarUrl), // Assuming the image path is correct
+                  fit: BoxFit.cover,
+                ),
+              ),
+              width: 100 * scaleFactor * .75,
+              height: 100 * scaleFactor * .75,
+              margin: EdgeInsets.zero,
+            ),
           ],
         ),
       ),

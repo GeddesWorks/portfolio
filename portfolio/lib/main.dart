@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfilio/view/home_screen.dart';
+import 'package:portfilio/view/resume_screen.dart';
 
 void main() {
   runApp(const Portfolio());
@@ -74,6 +75,7 @@ class Portfolio extends StatelessWidget {
       title: 'GeddesWorks',
       routes: {
         Home.routeName: (context) => const Home(),
+        ResumeScreen.routeName: (context) => const ResumeScreen(),
       },
     );
   }

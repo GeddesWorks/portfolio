@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_fadein: ^2.0.0
   video_player: ^2.8.1
+  pdf_render: ^1.4.0
+  syncfusion_flutter_pdfviewer: ^23.2.6
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +64,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/Resume-12-23-web.pdf
     - images/GeddesWorks.png
     - images/GeddesWorksCutout.png
     - images/authorizedsellerbadge.png
