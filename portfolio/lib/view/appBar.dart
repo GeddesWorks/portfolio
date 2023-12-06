@@ -14,6 +14,7 @@ PreferredSizeWidget appBar(BuildContext context) {
   return PreferredSize(
     preferredSize: Size.fromHeight(80.0),
     child: AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.grey[600],
       elevation: 0,
       flexibleSpace: Padding(
@@ -39,6 +40,13 @@ PreferredSizeWidget appBar(BuildContext context) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  IconButton(
+                    onPressed: con.goToHome,
+                    icon: const Icon(
+                      Icons.home,
+                      color: Colors.black,
+                    ),
+                  ),
                   IconButton(
                     onPressed: con.goToResumeScreen,
                     icon: const Icon(

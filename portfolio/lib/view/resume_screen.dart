@@ -37,7 +37,12 @@ class ResumeScreenState extends State<ResumeScreen> {
       appBar: screenWidth > 975 ? appBar(context) : appBarSmall(),
       endDrawer:
           screenWidth <= 975 ? drawerContents(scaleFactor, context) : null,
-      body: SfPdfViewer.asset('assets/Resume-12-23-web.pdf'),
+      body: SizedBox(
+        width: screenWidth > 1200 ? screenWidth * .9 : (screenWidth / 2) * .9,
+        child: SfPdfViewer.asset(
+          'assets/Resume-12-23-web.pdf',
+        ),
+      ),
     );
   }
 }

@@ -7,4 +7,8 @@ class AppBarController {
   void goToResumeScreen() {
     Navigator.pushNamed(context, '/resume');
   }
+
+  void goToHome() {
+    Navigator.pushNamed(context, '/');
+  }
 }
