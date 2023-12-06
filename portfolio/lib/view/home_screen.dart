@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
+import 'package:portfilio/controller/homeController.dart';
+import 'package:portfilio/model/home_model.dart';
 import 'package:portfilio/view/appBar.dart';
 import 'package:portfilio/view/contentWrapper.dart';
 import 'package:portfilio/view/homeWidgets/bioEntry.dart';
@@ -21,18 +23,22 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  late VideoPlayerController controller;
+  late VideoPlayerController vController;
+  late HomeModel model;
+  late HomeController con;
 
   @override
   void initState() {
     super.initState();
-    controller = VideoPlayerController.networkUrl(Uri.parse(
-        'https://firebasestorage.googleapis.com/v0/b/geddesworks-394c1.appspot.com/o/IntroVideoHD.mp4?alt=media&token=3de30eb0-6372-4097-a86e-b9c7560cbd22'))
+    model = HomeModel();
+    con = HomeController(this);
+    vController = VideoPlayerController.networkUrl(Uri.parse(model.vidUrl))
       ..initialize().then((_) {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {
-          controller.play();
-          controller.setLooping(true);
+          vController.setVolume(0);
+          vController.play();
+          vController.setLooping(true);
         });
       });
   }
@@ -40,14 +46,17 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double baseScale = screenWidth / 1200;
     double scaleFactor = screenWidth > 1200
-        ? screenWidth / 1200
+        ? baseScale
         : screenWidth > 600
-            ? screenWidth / 600
-            : screenWidth / 300;
+            ? baseScale * 2
+            : baseScale / 3;
     return Scaffold(
       backgroundColor: Colors.grey[800],
-      appBar: appBar(context, scaleFactor),
+      appBar:
+          screenWidth > 1200 ? appBar(this, scaleFactor) : appBarSmall(this),
+      endDrawer: screenWidth <= 1200 ? drawerContents() : null,
       body: SingleChildScrollView(
         child: ContentWrapper(
           footerPadding: 16,
@@ -75,27 +84,14 @@ class HomeState extends State<Home> {
   }
 
   Widget videoSection(BuildContext context, double width) {
-    return Container(
+    return SizedBox(
       width: width * .9,
       height: ((width * .9) / 5) * 4,
-      child: VideoPlayer(controller),
+      child: VideoPlayer(vController),
     );
   }
 
   Widget textSection(BuildContext context, double width) {
-    Image cultsLogo = Image.asset(
-      'images/cults.png',
-      width: 50,
-    );
-    Image liInLogo = Image.asset(
-      'images/linked.png',
-      width: 50,
-    );
-    Image githubLogo = Image.asset(
-      'images/github-mark.png',
-      width: 50,
-    );
-
     return Container(
       color: Colors.grey[600],
       width: width * .9,
@@ -142,7 +138,7 @@ class HomeState extends State<Home> {
               ),
             ],
           ),
-          Spacer(),
+          const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -151,21 +147,124 @@ class HomeState extends State<Home> {
                   js.context.callMethod('open',
                       ['https://cults3d.com/en/users/GeddesWorks/3d-models']);
                 },
-                icon: cultsLogo,
+                icon: model.cultsLogo,
               ),
               IconButton(
                 onPressed: () {
                   js.context
                       .callMethod('open', ['https://github.com/GeddesWorks']);
                 },
-                icon: githubLogo,
+                icon: model.githubLogo,
               ),
               IconButton(
                 onPressed: () {
                   js.context
                       .callMethod('open', ['www.linkedin.com/in/collingeddes']);
                 },
-                icon: liInLogo,
+                icon: model.liInLogo,
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget drawerContents() {
+    return Drawer(
+      child: Column(
+        children: [
+          Expanded(
+            flex: 6,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    // Action for Resume
+                  },
+                  icon: const Icon(
+                    Icons.description,
+                    color: Colors.black,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    // Action for Portfolio
+                  },
+                  icon: const Icon(
+                    Icons.work,
+                    color: Colors.black,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    // Action for About
+                  },
+                  icon: const Icon(
+                    Icons.info,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                InkWell(
+                  borderRadius: BorderRadius.circular(100),
+                  onTap: () {
+                    js.context
+                        .callMethod('open', ['https://3dshop.geddesworks.com']);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        model.printer,
+                        const SizedBox(width: 5),
+                        const Text('3D Print Shop'),
+                      ],
+                    ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    js.context.callMethod('open', [
+                      'https://www.youtube.com/channel/UCl6UJ-zSBmVH_TGAgRP-gbw'
+                    ]);
+                  },
+                  icon: model.youtube,
+                ),
+              ],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(
+                onPressed: () {
+                  js.context.callMethod('open',
+                      ['https://cults3d.com/en/users/GeddesWorks/3d-models']);
+                },
+                icon: model.cultsLogo,
+              ),
+              IconButton(
+                onPressed: () {
+                  js.context
+                      .callMethod('open', ['https://github.com/GeddesWorks']);
+                },
+                icon: model.githubLogo,
+              ),
+              IconButton(
+                onPressed: () {
+                  js.context
+                      .callMethod('open', ['www.linkedin.com/in/collingeddes']);
+                },
+                icon: model.liInLogo,
               ),
             ],
           )

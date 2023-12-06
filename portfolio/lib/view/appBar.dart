@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:js' as js;
 
-PreferredSizeWidget appBar(BuildContext context, double screenWidth) {
-  double scaleFactor = screenWidth / 1200;
-  double scaleFactor2 = screenWidth / 600;
-  Image logo = Image.asset('images/GeddesWorksCutout.png');
-  Image youtube = Image.asset('images/YouTube_dark_logo_(2017).png',
-      width: 200 * scaleFactor2);
-  Image printer = Image.asset('images/3dPrinter.png', width: 50 * scaleFactor2);
+import 'package:portfilio/view/home_screen.dart';
+
+PreferredSizeWidget appBar(HomeState state, double scaleFactor) {
+  scaleFactor = 1;
 
   return PreferredSize(
-    preferredSize: Size.fromHeight(80.0 * scaleFactor2 * 2),
+    preferredSize: Size.fromHeight(80.0 * scaleFactor),
     child: AppBar(
       backgroundColor: Colors.grey[600],
       elevation: 0,
@@ -23,12 +20,12 @@ PreferredSizeWidget appBar(BuildContext context, double screenWidth) {
               flex: 4,
               child: Row(
                 children: [
-                  logo,
+                  state.model.logo,
                   const SizedBox(width: 10),
                   Text(
                     'Collin Geddes is GeddesWorks',
                     style: TextStyle(
-                        fontSize: 24 * scaleFactor2,
+                        fontSize: 24 * scaleFactor,
                         fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -43,19 +40,28 @@ PreferredSizeWidget appBar(BuildContext context, double screenWidth) {
                     onPressed: () {
                       // Action for Resume
                     },
-                    icon: Icon(Icons.description),
+                    icon: const Icon(
+                      Icons.description,
+                      color: Colors.black,
+                    ),
                   ),
                   IconButton(
                     onPressed: () {
                       // Action for Portfolio
                     },
-                    icon: Icon(Icons.work),
+                    icon: const Icon(
+                      Icons.work,
+                      color: Colors.black,
+                    ),
                   ),
                   IconButton(
                     onPressed: () {
                       // Action for About
                     },
-                    icon: Icon(Icons.info),
+                    icon: const Icon(
+                      Icons.info,
+                      color: Colors.black,
+                    ),
                   ),
                 ],
               ),
@@ -75,11 +81,11 @@ PreferredSizeWidget appBar(BuildContext context, double screenWidth) {
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          printer,
+                          state.model.printer,
                           const SizedBox(width: 5),
                           Text(
                             '3D Print Shop',
-                            style: TextStyle(fontSize: 15 * scaleFactor2),
+                            style: TextStyle(fontSize: 15 * scaleFactor),
                           ),
                         ],
                       ),
@@ -91,11 +97,49 @@ PreferredSizeWidget appBar(BuildContext context, double screenWidth) {
                         'https://www.youtube.com/channel/UCl6UJ-zSBmVH_TGAgRP-gbw'
                       ]);
                     },
-                    icon: youtube,
+                    icon: state.model.youtube,
                   ),
                 ],
               ),
             ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+PreferredSizeWidget appBarSmall(HomeState state) {
+  Image logo = Image.asset('images/GeddesWorksCutout.png');
+
+  return PreferredSize(
+    preferredSize: const Size.fromHeight(60.0),
+    child: AppBar(
+      backgroundColor: Colors.grey[600],
+      elevation: 0,
+      flexibleSpace: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 4,
+              child: Row(
+                children: [
+                  logo,
+                  const SizedBox(width: 10),
+                  const Text(
+                    'Collin Geddes is GeddesWorks',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            // IconButton(
+            //     onPressed: () {
+            //       Scaffold.of(state.context).openDrawer();
+            //     },
+            //     icon: const Icon(Icons.menu)),
           ],
         ),
       ),
