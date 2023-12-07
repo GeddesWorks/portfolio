@@ -204,8 +204,8 @@ class HomeState extends State<Home> {
               ),
               IconButton(
                 onPressed: () {
-                  js.context
-                      .callMethod('open', ['www.linkedin.com/in/collingeddes']);
+                  js.context.callMethod(
+                      'open', ['https://www.linkedin.com/in/collingeddes']);
                 },
                 icon: liInLogo,
               ),

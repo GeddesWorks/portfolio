@@ -5,22 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "portfilio",
-            "cwd": "portfilio",
+            "name": "portfolio",
+            "cwd": "portfolio",
             "request": "launch",
             "type": "dart",
-            "program": "./lib/main.dart"
+            "deviceId": "chrome"
         },
         {
-            "name": "portfilio (profile mode)",
-            "cwd": "portfilio",
+            "name": "portfolio (profile mode)",
+            "cwd": "portfolio",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "portfilio (release mode)",
-            "cwd": "portfilio",
+            "name": "portfolio (release mode)",
+            "cwd": "portfolio",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
