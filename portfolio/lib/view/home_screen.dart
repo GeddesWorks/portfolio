@@ -91,7 +91,14 @@ class HomeState extends State<Home> {
     return SizedBox(
       width: width * .9,
       height: ((width * .9) / 5) * 4,
-      child: VideoPlayer(vController),
+      child: vController.value.isPlaying
+          ? VideoPlayer(vController)
+          : const Center(
+              child: CircularProgressIndicator(
+                color: Colors.black,
+              ),
+            ),
+      // VideoPlayer(vController),
     );
   }
 
@@ -177,7 +184,7 @@ class HomeState extends State<Home> {
                     style: TextStyle(fontSize: 15 * state.model.scaleFactor),
                   ),
                   Text(
-                    'Arial Photography',
+                    'Aerial Photography',
                     style: TextStyle(fontSize: 15 * state.model.scaleFactor),
                   ),
                 ],
