@@ -38,7 +38,8 @@ class ResumeScreenState extends State<ResumeScreen> {
       endDrawer:
           screenWidth <= 975 ? drawerContents(scaleFactor, context) : null,
       body: Center(
-        child: SizedBox(
+        child: Container(
+          alignment: Alignment.center,
           width: screenWidth > 1200 ? (screenWidth / 2) * .9 : screenWidth * .9,
           child: SfPdfViewer.asset(
             'assets/Resume-12-23-web.pdf',
