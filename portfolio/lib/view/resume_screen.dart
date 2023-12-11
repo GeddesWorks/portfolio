@@ -38,8 +38,9 @@ class ResumeScreenState extends State<ResumeScreen> {
       endDrawer:
           screenWidth <= 975 ? drawerContents(scaleFactor, context) : null,
       body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(width: screenWidth > 1200 ? (screenWidth / 3) * .9 : 0),
+          // SizedBox(width: screenWidth > 1200 ? (screenWidth / 3) * .9 : 0),
           Center(
             child: Container(
               alignment: Alignment.center,
@@ -51,7 +52,7 @@ class ResumeScreenState extends State<ResumeScreen> {
               ),
             ),
           ),
-          SizedBox(width: screenWidth > 1200 ? (screenWidth / 3) * .9 : 0),
+          // SizedBox(width: screenWidth > 1200 ? (screenWidth / 3) * .9 : 0),
         ],
       ),
     );

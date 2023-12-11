@@ -28,7 +28,7 @@ PreferredSizeWidget appBar(BuildContext context) {
                 children: [
                   logo,
                   const SizedBox(width: 10),
-                  Text(
+                  const Text(
                     'Collin Geddes is GeddesWorks',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
