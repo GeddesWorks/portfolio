@@ -4,6 +4,11 @@ import 'dart:js' as js;
 import 'package:portfilio/controller/appBarController.dart';
 
 Widget drawerContents(double scaleFactor, BuildContext context) {
+  Image logo = Image.asset(
+    'images/GeddesWorksCutout.png',
+    width: 50,
+  );
+
   Image cultsLogo = Image.asset(
     'images/cults.png',
     width: 50 * scaleFactor,
@@ -24,22 +29,62 @@ Widget drawerContents(double scaleFactor, BuildContext context) {
   AppBarController con = AppBarController(context);
 
   return Drawer(
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.zero),
+    ),
+    backgroundColor: Colors.grey[600],
     child: Column(
       children: [
-        Expanded(
-          flex: 6,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: logo,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
                 onPressed: () {
-                  // Action for Resume
+                  Navigator.pop(context);
                 },
                 icon: const Icon(
-                  Icons.description,
+                  Icons.close,
                   color: Colors.black,
                 ),
               ),
+            ),
+          ],
+        ),
+        Expanded(
+          flex: 4,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: con.goToHome,
+                    icon: const Icon(
+                      Icons.home,
+                      color: Colors.black,
+                      size: 50,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      // Action for Resume
+                    },
+                    icon: const Icon(
+                      Icons.description,
+                      color: Colors.black,
+                      size: 50,
+                    ),
+                  ),
+                ],
+              ),
+
               // IconButton(
               //   onPressed: () {
               //     // Action for Portfolio
@@ -65,21 +110,26 @@ Widget drawerContents(double scaleFactor, BuildContext context) {
           flex: 4,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              InkWell(
-                borderRadius: BorderRadius.circular(100),
-                onTap: () {
-                  js.context
-                      .callMethod('open', ['https://3dshop.geddesworks.com']);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      printer,
-                      const SizedBox(width: 5),
-                      const Text('3D Print Shop'),
-                    ],
+              Container(
+                alignment: Alignment.center,
+                width: 175,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(100),
+                  onTap: () {
+                    js.context
+                        .callMethod('open', ['https://3dshop.geddesworks.com']);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        printer,
+                        const SizedBox(width: 5),
+                        const Text('3D Print Shop'),
+                      ],
+                    ),
                   ),
                 ),
               ),

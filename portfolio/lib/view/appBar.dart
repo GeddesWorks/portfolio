@@ -30,7 +30,7 @@ PreferredSizeWidget appBar(BuildContext context) {
                   const SizedBox(width: 10),
                   Text(
                     'Collin Geddes is GeddesWorks',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
