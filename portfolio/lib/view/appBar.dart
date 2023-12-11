@@ -54,24 +54,24 @@ PreferredSizeWidget appBar(BuildContext context) {
                       color: Colors.black,
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      // Action for Portfolio
-                    },
-                    icon: const Icon(
-                      Icons.work,
-                      color: Colors.black,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      // Action for About
-                    },
-                    icon: const Icon(
-                      Icons.info,
-                      color: Colors.black,
-                    ),
-                  ),
+                  // IconButton(
+                  //   onPressed: () {
+                  //     // Action for Portfolio
+                  //   },
+                  //   icon: const Icon(
+                  //     Icons.work,
+                  //     color: Colors.black,
+                  //   ),
+                  // ),
+                  // IconButton(
+                  //   onPressed: () {
+                  //     // Action for About
+                  //   },
+                  //   icon: const Icon(
+                  //     Icons.info,
+                  //     color: Colors.black,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
