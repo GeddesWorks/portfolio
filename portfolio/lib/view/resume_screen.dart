@@ -34,9 +34,10 @@ class ResumeScreenState extends State<ResumeScreen> {
 
     return Scaffold(
       backgroundColor: Colors.grey[800],
-      appBar: screenWidth > 975 ? appBar(context) : appBarSmall(),
-      endDrawer:
-          screenWidth <= 975 ? drawerContents(scaleFactor, context) : null,
+      appBar: screenWidth > 975 ? appBar(context, true) : appBarSmall(true),
+      endDrawer: screenWidth <= 975
+          ? drawerContents(scaleFactor, context, true)
+          : null,
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

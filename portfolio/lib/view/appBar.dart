@@ -4,10 +4,11 @@ import 'dart:js' as js;
 
 import 'package:portfilio/view/home_screen.dart';
 
-PreferredSizeWidget appBar(BuildContext context) {
+PreferredSizeWidget appBar(BuildContext context, bool personalPage) {
   Image youtube =
       Image.asset('images/YouTube_dark_logo_(2017).png', width: 200);
   Image printer = Image.asset('images/3dPrinter.png', width: 50);
+  Image etsy = Image.asset('images/EtsyDark.png', width: 100);
   Image logo = Image.asset('images/GeddesWorksCutout.png');
   AppBarController con = AppBarController(context);
 
@@ -28,53 +29,56 @@ PreferredSizeWidget appBar(BuildContext context) {
                 children: [
                   logo,
                   const SizedBox(width: 10),
-                  const Text(
-                    'Collin Geddes is GeddesWorks',
+                  Text(
+                    personalPage
+                        ? 'Collin Geddes is GeddesWorks'
+                        : "GeddesWorks",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
-            Expanded(
-              flex: 2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    onPressed: con.goToHome,
-                    icon: const Icon(
-                      Icons.home,
-                      color: Colors.black,
+            if (personalPage)
+              Expanded(
+                flex: 2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: con.goToHome,
+                      icon: const Icon(
+                        Icons.home,
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
-                  IconButton(
-                    onPressed: con.goToResumeScreen,
-                    icon: const Icon(
-                      Icons.description,
-                      color: Colors.black,
+                    IconButton(
+                      onPressed: con.goToResumeScreen,
+                      icon: const Icon(
+                        Icons.description,
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
-                  // IconButton(
-                  //   onPressed: () {
-                  //     // Action for Portfolio
-                  //   },
-                  //   icon: const Icon(
-                  //     Icons.work,
-                  //     color: Colors.black,
-                  //   ),
-                  // ),
-                  // IconButton(
-                  //   onPressed: () {
-                  //     // Action for About
-                  //   },
-                  //   icon: const Icon(
-                  //     Icons.info,
-                  //     color: Colors.black,
-                  //   ),
-                  // ),
-                ],
+                    // IconButton(
+                    //   onPressed: () {
+                    //     // Action for Portfolio
+                    //   },
+                    //   icon: const Icon(
+                    //     Icons.work,
+                    //     color: Colors.black,
+                    //   ),
+                    // ),
+                    // IconButton(
+                    //   onPressed: () {
+                    //     // Action for About
+                    //   },
+                    //   icon: const Icon(
+                    //     Icons.info,
+                    //     color: Colors.black,
+                    //   ),
+                    // ),
+                  ],
+                ),
               ),
-            ),
             Expanded(
               flex: 4,
               child: Row(
@@ -108,6 +112,13 @@ PreferredSizeWidget appBar(BuildContext context) {
                     },
                     icon: youtube,
                   ),
+                  IconButton(
+                    onPressed: () {
+                      js.context
+                          .callMethod('open', ['https://geddesworks.etsy.com']);
+                    },
+                    icon: etsy,
+                  ),
                 ],
               ),
             ),
@@ -118,7 +129,7 @@ PreferredSizeWidget appBar(BuildContext context) {
   );
 }
 
-PreferredSizeWidget appBarSmall() {
+PreferredSizeWidget appBarSmall(bool personalPage) {
   Image logo = Image.asset('images/GeddesWorksCutout.png');
 
   return PreferredSize(
@@ -137,8 +148,10 @@ PreferredSizeWidget appBarSmall() {
                 children: [
                   logo,
                   const SizedBox(width: 10),
-                  const Text(
-                    'Collin Geddes is GeddesWorks',
+                  Text(
+                    personalPage
+                        ? 'Collin Geddes is GeddesWorks'
+                        : "GeddesWorks",
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ],

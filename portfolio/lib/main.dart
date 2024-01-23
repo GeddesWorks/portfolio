@@ -71,10 +71,15 @@ class Portfolio extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: Home.routeName,
+      initialRoute: "/",
       title: 'GeddesWorks',
       routes: {
-        Home.routeName: (context) => const Home(),
+        "/": (context) => const Home(
+              personalPage: false,
+            ),
+        "/c": (context) => const Home(
+              personalPage: true,
+            ),
         ResumeScreen.routeName: (context) => const ResumeScreen(),
       },
     );

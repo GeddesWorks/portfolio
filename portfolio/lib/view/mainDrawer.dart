@@ -3,7 +3,8 @@ import 'dart:js' as js;
 
 import 'package:portfilio/controller/appBarController.dart';
 
-Widget drawerContents(double scaleFactor, BuildContext context) {
+Widget drawerContents(
+    double scaleFactor, BuildContext context, bool personalPage) {
   Image logo = Image.asset(
     'images/GeddesWorksCutout.png',
     width: 50,
@@ -21,6 +22,13 @@ Widget drawerContents(double scaleFactor, BuildContext context) {
     'images/github-mark.png',
     width: 50 * scaleFactor,
   );
+
+  Image bambuLogo = Image.asset(
+    'images/bambu.png',
+    width: 40 * scaleFactor,
+  );
+
+  Image etsy = Image.asset('images/EtsyDark.png', width: 100 * scaleFactor);
 
   Image youtube =
       Image.asset('images/YouTube_dark_logo_(2017).png', width: 200);
@@ -56,56 +64,57 @@ Widget drawerContents(double scaleFactor, BuildContext context) {
             ),
           ],
         ),
-        Expanded(
-          flex: 4,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    onPressed: con.goToHome,
-                    icon: const Icon(
-                      Icons.home,
-                      color: Colors.black,
-                      size: 50,
+        if (personalPage)
+          Expanded(
+            flex: 4,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: con.goToHome,
+                      icon: const Icon(
+                        Icons.home,
+                        color: Colors.black,
+                        size: 50,
+                      ),
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      // Action for Resume
-                    },
-                    icon: const Icon(
-                      Icons.description,
-                      color: Colors.black,
-                      size: 50,
+                    IconButton(
+                      onPressed: () {
+                        // Action for Resume
+                      },
+                      icon: const Icon(
+                        Icons.description,
+                        color: Colors.black,
+                        size: 50,
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
 
-              // IconButton(
-              //   onPressed: () {
-              //     // Action for Portfolio
-              //   },
-              //   icon: const Icon(
-              //     Icons.work,
-              //     color: Colors.black,
-              //   ),
-              // ),
-              // IconButton(
-              //   onPressed: () {
-              //     // Action for About
-              //   },
-              //   icon: const Icon(
-              //     Icons.info,
-              //     color: Colors.black,
-              //   ),
-              // ),
-            ],
+                // IconButton(
+                //   onPressed: () {
+                //     // Action for Portfolio
+                //   },
+                //   icon: const Icon(
+                //     Icons.work,
+                //     color: Colors.black,
+                //   ),
+                // ),
+                // IconButton(
+                //   onPressed: () {
+                //     // Action for About
+                //   },
+                //   icon: const Icon(
+                //     Icons.info,
+                //     color: Colors.black,
+                //   ),
+                // ),
+              ],
+            ),
           ),
-        ),
         Expanded(
           flex: 4,
           child: Column(
@@ -124,6 +133,8 @@ Widget drawerContents(double scaleFactor, BuildContext context) {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         printer,
                         const SizedBox(width: 5),
@@ -140,6 +151,36 @@ Widget drawerContents(double scaleFactor, BuildContext context) {
                   ]);
                 },
                 icon: youtube,
+              ),
+              IconButton(
+                onPressed: () {
+                  js.context
+                      .callMethod('open', ['https://geddesworks.etsy.com']);
+                },
+                icon: etsy,
+              ),
+              Container(
+                alignment: Alignment.center,
+                width: 200,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(100),
+                  onTap: () {
+                    js.context.callMethod(
+                        'open', ['https://www.geddesworks.com/maker']);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        bambuLogo,
+                        const SizedBox(width: 5),
+                        const Text('Maker World'),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

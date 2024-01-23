@@ -13,9 +13,9 @@ import 'package:video_player/video_player.dart';
 import 'dart:js' as js;
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  const Home({required this.personalPage, super.key});
 
-  static const routeName = '/';
+  final bool personalPage;
 
   @override
   State<StatefulWidget> createState() {
@@ -56,9 +56,11 @@ class HomeState extends State<Home> {
 
     return Scaffold(
       backgroundColor: Colors.grey[800],
-      appBar: model.screenWidth > 975 ? appBar(context) : appBarSmall(),
+      appBar: model.screenWidth > 975
+          ? appBar(context, widget.personalPage)
+          : appBarSmall(widget.personalPage),
       endDrawer: model.screenWidth <= 975
-          ? drawerContents(model.scaleFactor, context)
+          ? drawerContents(model.scaleFactor, context, widget.personalPage)
           : null,
       body: SingleChildScrollView(
         child: ContentWrapper(
@@ -115,6 +117,10 @@ class HomeState extends State<Home> {
       'images/github-mark.png',
       width: 50 * state.model.scaleFactor,
     );
+    Image bambuLogo = Image.asset(
+      'images/bambu.png',
+      width: 30 * state.model.scaleFactor,
+    );
 
     return Container(
       color: Colors.grey[600],
@@ -124,7 +130,9 @@ class HomeState extends State<Home> {
       child: Column(
         children: [
           Header(
-            title: 'Collin Geddes is GeddesWorks',
+            title: widget.personalPage
+                ? 'Collin Geddes is GeddesWorks'
+                : 'GeddesWorks',
             subtitle: 'Developer Extraordinaire | 3D Printing Enthusiast',
             location: 'Edmond, OK',
             avatarUrl: 'images/GeddesWorksCutout.png',
@@ -195,6 +203,13 @@ class HomeState extends State<Home> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              IconButton(
+                onPressed: () {
+                  js.context.callMethod(
+                      'open', ['https://www.geddesworks.com/maker']);
+                },
+                icon: bambuLogo,
+              ),
               IconButton(
                 onPressed: () {
                   js.context.callMethod('open',
