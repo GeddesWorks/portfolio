@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+:root {
+  font-family: "Outfit Variable", "Avenir Next", sans-serif;
+  color: #122033;
+  background: #f6f3ec;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    linear-gradient(180deg, rgba(255, 250, 242, 0.75), rgba(246, 243, 236, 1)),
+    #f6f3ec;
+}
+
+a {
+  color: inherit;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+code {
+  font-family: "JetBrains Mono Variable", "SFMono-Regular", monospace;
+  font-size: 0.9em;
+}
+
+::selection {
+  background: rgba(22, 93, 255, 0.18);
+}
