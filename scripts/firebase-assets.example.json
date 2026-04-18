@@ -1,0 +1,16 @@
+[
+  {
+    "label": "Legacy intro video",
+    "sourceUrl": "https://firebasestorage.googleapis.com/v0/b/geddesworks-394c1.appspot.com/o/IntroVideoHD.mp4?alt=media&token=3de30eb0-6372-4097-a86e-b9c7560cbd22",
+    "fileName": "intro-video-hd.mp4",
+    "fileId": "legacy-intro-video",
+    "contentType": "video/mp4"
+  },
+  {
+    "label": "Legacy print photo",
+    "sourcePath": "./public/media/welcome-1.jpeg",
+    "fileName": "welcome-1.jpeg",
+    "fileId": "legacy-print-01",
+    "contentType": "image/jpeg"
+  }
+]

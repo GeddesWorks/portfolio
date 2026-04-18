@@ -1,172 +1,249 @@
-export type ProjectCategory = 'Commercial' | 'Open Source' | 'Platform' | 'Maker';
+export type AppPageId = 'overview' | 'code' | 'physical';
+
+export interface SitePage {
+  id: AppPageId;
+  label: string;
+  title: string;
+}
+
+export interface ProjectCollection {
+  id: string;
+  pageId: Exclude<AppPageId, 'overview'>;
+  title: string;
+  placeholderCount?: number;
+  placeholderLabel?: string;
+}
 
 export interface ProjectLink {
   label: string;
-  href: string;
+  href?: string;
 }
 
-export interface ProjectEntry {
+export interface ProjectRecord {
+  id: string;
+  collectionId: string;
   title: string;
-  category: ProjectCategory;
+  category: string;
   status: string;
-  description: string;
-  stack: string[];
+  summary: string;
+  tags: string[];
   accent: string;
+  featured?: boolean;
+  previewImageSrc?: string;
+  previewLabel?: string;
   links: ProjectLink[];
 }
 
-export interface SocialLink extends ProjectLink {
-  blurb: string;
+export interface GalleryItem {
+  id: string;
+  title: string;
+  caption: string;
+  imageSrc?: string;
+  accent: string;
+  note?: string;
 }
 
-export const heroStats = [
-  { value: '6+', label: 'Live surfaces across web and commerce' },
-  { value: '3', label: 'Active lanes: product, maker, open source' },
-  { value: '1', label: 'Hub to tie the whole ecosystem together' },
-];
+export interface ProjectVideo {
+  title: string;
+  status: string;
+  posterImageSrc?: string;
+}
 
-export const spotlightProjects: ProjectEntry[] = [
+export interface ExternalLink {
+  label: string;
+  href?: string;
+}
+
+const appwriteEndpoint = import.meta.env.VITE_APPWRITE_ENDPOINT?.replace(/\/$/, '');
+const appwriteProjectId = import.meta.env.VITE_APPWRITE_PROJECT_ID;
+const appwriteBucketId = import.meta.env.VITE_APPWRITE_BUCKET_ID || 'portfolio-assets';
+
+function appwriteFileView(fileId: string, fallbackPath?: string) {
+  if (!appwriteEndpoint || !appwriteProjectId) {
+    return fallbackPath;
+  }
+
+  return `${appwriteEndpoint}/storage/buckets/${appwriteBucketId}/files/${fileId}/view?project=${appwriteProjectId}`;
+}
+
+export const brandMedia = {
+  avatarCutout: appwriteFileView('legacy-geddes-cutout', '/media/avatar-cutout.png'),
+};
+
+export const sitePages: SitePage[] = [
   {
-    title: 'GeddesWorks Hub',
-    category: 'Platform',
-    status: 'Main entry point',
-    description:
-      'The central landing space for projects, experiments, storefronts, and open web work.',
-    stack: ['React', 'TypeScript', 'MUI', 'Tailwind'],
-    accent: 'from-amber-300 via-orange-400 to-rose-500',
-    links: [
-      { label: 'Open site', href: 'https://www.geddesworks.com' },
-      { label: 'Source', href: 'https://github.com/GeddesWorks/portfolio' },
-    ],
+    id: 'overview',
+    label: 'Home',
+    title: 'Home',
   },
   {
+    id: 'code',
+    label: 'Code',
+    title: 'Code',
+  },
+  {
+    id: 'physical',
+    label: 'Prints',
+    title: 'Prints',
+  },
+];
+
+export const projectCollections: ProjectCollection[] = [
+  {
+    id: 'open-source',
+    pageId: 'code',
+    title: 'Open Source',
+    placeholderCount: 1,
+    placeholderLabel: 'Open slot',
+  },
+  {
+    id: 'game-mods',
+    pageId: 'code',
+    title: 'Game Mods',
+    placeholderCount: 3,
+    placeholderLabel: 'Open slot',
+  },
+  {
+    id: 'closed-source',
+    pageId: 'code',
+    title: 'Closed Source',
+  },
+  {
+    id: 'physical-projects',
+    pageId: 'physical',
+    title: '3D Printing',
+    placeholderCount: 2,
+    placeholderLabel: 'Open slot',
+  },
+];
+
+export const projects: ProjectRecord[] = [
+  {
+    id: 'quotedump',
+    collectionId: 'closed-source',
     title: 'QuoteDump',
-    category: 'Commercial',
-    status: 'Featured app',
-    description:
-      'The app you are actively advertising, positioned as a polished public-facing product instead of a side project.',
-    stack: ['Web App', 'Product', 'Production'],
-    accent: 'from-cyan-300 via-sky-400 to-blue-600',
+    category: 'Closed source',
+    status: 'Live',
+    summary: 'Quote sites, product pages, and launch flows.',
+    tags: ['Web', 'Live'],
+    accent: 'linear-gradient(135deg, #f4b264 0%, #f57f5b 52%, #de5b74 100%)',
+    featured: true,
+    previewLabel: 'QD',
     links: [
-      { label: 'Open app', href: 'https://quotedump.com' },
-      { label: 'Main hub', href: 'https://www.geddesworks.com' },
+      { label: 'Landing', href: 'https://quotedump.com' },
+      { label: 'App', href: 'https://quotedump.app' },
     ],
   },
   {
-    title: 'Plex Watchlist',
-    category: 'Open Source',
-    status: 'Open-source utility',
-    description:
-      'An open-source helper for Plex watchlist workflows, representing the kind of practical tooling that belongs in the GeddesWorks ecosystem.',
-    stack: ['Open Source', 'Plex', 'Utility'],
-    accent: 'from-emerald-300 via-teal-400 to-cyan-500',
-    links: [
-      { label: 'GitHub repo', href: 'https://github.com/GeddesWorks/plexlisthelper' },
-      { label: 'GitHub profile', href: 'https://github.com/GeddesWorks' },
-    ],
+    id: 'plex-list-helper',
+    collectionId: 'open-source',
+    title: 'Plex List Helper',
+    category: 'Open source',
+    status: 'Active',
+    summary: 'Plex list utility for faster library cleanup.',
+    tags: ['Plex', 'Repo'],
+    accent: 'linear-gradient(135deg, #87e6c7 0%, #42c6d1 48%, #2969ff 100%)',
+    featured: true,
+    previewLabel: 'PLH',
+    links: [{ label: 'Repo', href: 'https://github.com/GeddesWorks/plexlisthelper' }],
+  },
+  {
+    id: 'cults3d-profile',
+    collectionId: 'physical-projects',
+    title: 'Cults3D',
+    category: '3D printing',
+    status: 'Live',
+    summary: 'Released print catalog and file drops.',
+    tags: ['Prints', 'Files'],
+    accent: 'linear-gradient(135deg, #29516f 0%, #37668f 52%, #5b89b6 100%)',
+    featured: true,
+    previewImageSrc: appwriteFileView('legacy-welcome-1', '/media/welcome-1.jpeg'),
+    links: [{ label: 'Open', href: 'https://cults3d.com/en/users/GeddesWorks/3d-models' }],
+  },
+  {
+    id: 'makerworld-profile',
+    collectionId: 'physical-projects',
+    title: 'MakerWorld',
+    category: '3D printing',
+    status: 'Soon',
+    summary: 'Profile setup and release queue.',
+    tags: ['Prints', 'Platform'],
+    accent: 'linear-gradient(135deg, #3c5530 0%, #4f7541 52%, #7eb05f 100%)',
+    featured: true,
+    previewImageSrc: appwriteFileView('legacy-welcome-2', '/media/welcome-2.jpeg'),
+    links: [{ label: 'Profile' }],
   },
 ];
 
-export const projectEntries: ProjectEntry[] = [
+export const galleryItems: GalleryItem[] = [
   {
-    title: '3D Print Shop',
-    category: 'Commercial',
-    status: 'Revenue-generating',
-    description:
-      'A customer-facing storefront for products, fabrication work, and the business side of GeddesWorks.',
-    stack: ['Flutter Web', 'Commerce', 'Product Ops'],
-    accent: 'from-fuchsia-300 via-pink-400 to-rose-500',
-    links: [
-      { label: 'Visit shop', href: 'https://3dshop.geddesworks.com' },
-      { label: 'GitHub repo', href: 'https://github.com/GeddesWorks/shop' },
-    ],
+    id: 'studio',
+    title: 'Workbench',
+    caption: 'Bench setup.',
+    imageSrc: '/media/studio-shot.jpeg',
+    accent: 'linear-gradient(135deg, #1f3557 0%, #244a7d 52%, #4f79b3 100%)',
   },
   {
-    title: 'Hub Prototype',
-    category: 'Platform',
-    status: 'Archived experiment',
-    description:
-      'An earlier hub-style destination that helped shape the direction toward a more connected project ecosystem.',
-    stack: ['Static Web', 'GitHub Pages'],
-    accent: 'from-violet-300 via-indigo-400 to-blue-500',
-    links: [
-      { label: 'Open prototype', href: 'https://hub.geddesworks.com' },
-      { label: 'GitHub repo', href: 'https://github.com/GeddesWorks/hub' },
-    ],
+    id: 'print-01',
+    title: 'Print 01',
+    caption: 'Archive photo.',
+    imageSrc: appwriteFileView('legacy-welcome-1', '/media/welcome-1.jpeg'),
+    accent: 'linear-gradient(135deg, #d6b25f 0%, #ef8f45 52%, #c96541 100%)',
   },
   {
-    title: 'Portfolio Source',
-    category: 'Platform',
-    status: 'Rebuilt',
-    description:
-      'The original student-era portfolio, now transformed into a broader project index and launchpad.',
-    stack: ['GitHub Actions', 'Custom Domain'],
-    accent: 'from-slate-300 via-zinc-400 to-stone-500',
-    links: [
-      { label: 'Repository', href: 'https://github.com/GeddesWorks/portfolio' },
-      { label: 'Resume PDF', href: '/media/resume.pdf' },
-    ],
+    id: 'print-02',
+    title: 'Print 02',
+    caption: 'Archive photo.',
+    imageSrc: appwriteFileView('legacy-welcome-2', '/media/welcome-2.jpeg'),
+    accent: 'linear-gradient(135deg, #7a6ed6 0%, #5c79f0 52%, #3f97ef 100%)',
   },
   {
-    title: 'Maker Presence',
-    category: 'Maker',
-    status: 'Ongoing',
-    description:
-      'Profiles, digital products, and storefront touchpoints connected to the fabrication side of the business.',
-    stack: ['Cults3D', 'Etsy', 'YouTube'],
-    accent: 'from-lime-300 via-green-400 to-emerald-500',
-    links: [
-      {
-        label: 'Cults3D',
-        href: 'https://cults3d.com/en/users/GeddesWorks/3d-models',
-      },
-      { label: 'Etsy', href: 'https://www.etsy.com/shop/geddesworks' },
-    ],
+    id: 'print-03',
+    title: 'Print 03',
+    caption: 'Archive photo.',
+    imageSrc: appwriteFileView('legacy-welcome-3', '/media/welcome-3.jpeg'),
+    accent: 'linear-gradient(135deg, #6ebd95 0%, #37ab88 52%, #0f897a 100%)',
+  },
+  {
+    id: 'print-04',
+    title: 'Print 04',
+    caption: 'Archive photo.',
+    imageSrc: appwriteFileView('legacy-welcome-4', '/media/welcome-4.jpeg'),
+    accent: 'linear-gradient(135deg, #e2ae7f 0%, #ea8b6d 52%, #cb5f70 100%)',
+  },
+  {
+    id: 'print-05',
+    title: 'Print 05',
+    caption: 'Archive photo.',
+    imageSrc: appwriteFileView('legacy-welcome-5', '/media/welcome-5.jpeg'),
+    accent: 'linear-gradient(135deg, #7ca9f7 0%, #4f8dd8 52%, #3b68ba 100%)',
   },
 ];
 
-export const operatingAreas = [
-  {
-    title: 'Product Websites',
-    description:
-      'Public sites that need to feel sharp, trustworthy, and easy to navigate for real users.',
-  },
-  {
-    title: 'Open Experiments',
-    description:
-      'Smaller ideas, prototypes, and utilities that are easier to ship when the hub gives them a home.',
-  },
-  {
-    title: 'Maker Commerce',
-    description:
-      'The business side of GeddesWorks: custom products, 3D printing, and storefront infrastructure.',
-  },
-  {
-    title: 'Build System',
-    description:
-      'A lightweight deployment flow so the site stays easy to update as new work launches.',
-  },
-];
+export const projectVideo: ProjectVideo = {
+  title: 'Project Video',
+  status: 'Soon',
+  posterImageSrc: appwriteFileView('legacy-welcome-3', '/media/welcome-3.jpeg'),
+};
 
-export const socialLinks: SocialLink[] = [
+export const externalLinks: ExternalLink[] = [
   {
     label: 'GitHub',
     href: 'https://github.com/GeddesWorks',
-    blurb: 'Code, experiments, and source repositories.',
+  },
+  {
+    label: 'MakerWorld',
   },
   {
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/in/collingeddes',
-    blurb: 'Professional profile and broader career context.',
   },
   {
     label: 'YouTube',
     href: 'https://www.youtube.com/channel/UCl6UJ-zSBmVH_TGAgRP-gbw',
-    blurb: 'Video, demos, and maker-adjacent publishing.',
   },
   {
     label: 'Cults3D',
     href: 'https://cults3d.com/en/users/GeddesWorks/3d-models',
-    blurb: '3D models and maker distribution.',
   },
 ];

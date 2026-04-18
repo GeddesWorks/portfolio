@@ -2,20 +2,20 @@ import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
   palette: {
-    mode: 'light',
+    mode: 'dark',
     primary: {
-      main: '#165DFF',
+      main: '#F0B35D',
     },
     secondary: {
-      main: '#FF7A59',
+      main: '#6FA5FF',
     },
     background: {
-      default: '#F6F3EC',
-      paper: '#FFFDF8',
+      default: '#121315',
+      paper: '#1B1D20',
     },
     text: {
-      primary: '#122033',
-      secondary: '#4E5E74',
+      primary: '#F5EBDD',
+      secondary: '#ACA79F',
     },
   },
   typography: {
@@ -54,14 +54,6 @@ export const theme = createTheme({
         root: {
           borderRadius: 999,
           fontWeight: 600,
-        },
-      },
-    },
-    MuiCard: {
-      styleOverrides: {
-        root: {
-          borderRadius: 28,
-          boxShadow: '0 24px 70px rgba(18, 32, 51, 0.08)',
         },
       },
     },

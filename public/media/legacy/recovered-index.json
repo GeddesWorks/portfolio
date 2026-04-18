@@ -1,0 +1,163 @@
+﻿[
+    {
+        "source_path":  "portfolio/images/3dPrinter.png",
+        "latest_commit":  "49f29b74501c9aad88347035d513dc81a080709a",
+        "blob_sha":  "0028b1778f090c1afee194d36440fb1ac96551a8",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__3dPrinter-0028b177.png",
+        "bytes":  8068
+    },
+    {
+        "source_path":  "portfolio/images/accentBanner1.png",
+        "latest_commit":  "09c77475c98bdc9c7226933cdb3d99886dd867ed",
+        "blob_sha":  "447b4ae7f9e7ff5e5e1f63f52049edc38d73d7af",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__accentBanner1-447b4ae7.png",
+        "bytes":  716194
+    },
+    {
+        "source_path":  "portfolio/images/authorizedsellerbadge.png",
+        "latest_commit":  "09c77475c98bdc9c7226933cdb3d99886dd867ed",
+        "blob_sha":  "8d0a220c1997ecd94ba0a9cd923e7cfdbd055a30",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__authorizedsellerbadge-8d0a220c.png",
+        "bytes":  999644
+    },
+    {
+        "source_path":  "portfolio/images/bambu.png",
+        "latest_commit":  "49f29b74501c9aad88347035d513dc81a080709a",
+        "blob_sha":  "7ae32f5749b8734394cee40825f15cf0487d152c",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__bambu-7ae32f57.png",
+        "bytes":  8212
+    },
+    {
+        "source_path":  "portfolio/images/cash-app-logo-512x512.png",
+        "latest_commit":  "09c77475c98bdc9c7226933cdb3d99886dd867ed",
+        "blob_sha":  "55ef06e1733605921627d173a56f70384a6c4dc7",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__cash-app-logo-512x512-55ef06e1.png",
+        "bytes":  28236
+    },
+    {
+        "source_path":  "portfolio/images/cults.png",
+        "latest_commit":  "09c77475c98bdc9c7226933cdb3d99886dd867ed",
+        "blob_sha":  "4d7454427132c106791643e67c0f4f5c4b179c16",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__cults-4d745442.png",
+        "bytes":  59022
+    },
+    {
+        "source_path":  "portfolio/images/Etsy.png",
+        "latest_commit":  "49f29b74501c9aad88347035d513dc81a080709a",
+        "blob_sha":  "d2502f0a8b94b38cc5765e5337b100f9d22a6d9f",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__Etsy-d2502f0a.png",
+        "bytes":  15492
+    },
+    {
+        "source_path":  "portfolio/images/EtsyDark.png",
+        "latest_commit":  "49f29b74501c9aad88347035d513dc81a080709a",
+        "blob_sha":  "779d1e470a76a16d772edc0cf62bf462cfadead1",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__EtsyDark-779d1e47.png",
+        "bytes":  9036
+    },
+    {
+        "source_path":  "portfolio/images/EtsySquare.png",
+        "latest_commit":  "49f29b74501c9aad88347035d513dc81a080709a",
+        "blob_sha":  "35ecff0393bcaf9b2d0b3ff54ab143527ddecf93",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__EtsySquare-35ecff03.png",
+        "bytes":  28150
+    },
+    {
+        "source_path":  "portfolio/images/GeddesWorks.png",
+        "latest_commit":  "09c77475c98bdc9c7226933cdb3d99886dd867ed",
+        "blob_sha":  "eeb91875b52a5dfcb92da67701e2a4dac0b12c9b",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__GeddesWorks-eeb91875.png",
+        "bytes":  3273236
+    },
+    {
+        "source_path":  "portfolio/images/GeddesWorksCutout.png",
+        "latest_commit":  "09c77475c98bdc9c7226933cdb3d99886dd867ed",
+        "blob_sha":  "d4fe9d5143d18b7d0791257740d6f1ed558b5d92",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__GeddesWorksCutout-d4fe9d51.png",
+        "bytes":  1125838
+    },
+    {
+        "source_path":  "portfolio/images/github-mark.png",
+        "latest_commit":  "09c77475c98bdc9c7226933cdb3d99886dd867ed",
+        "blob_sha":  "6cb3b705d018006a2bd4200ea94c9d5fb98b6f76",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__github-mark-6cb3b705.png",
+        "bytes":  12252
+    },
+    {
+        "source_path":  "portfolio/images/linked.png",
+        "latest_commit":  "eaea4ed39f0674cb1d1970b08bb846a74428b33b",
+        "blob_sha":  "8bc2d53ce28288d1004a2ea9670fa4571b0343dc",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__linked-8bc2d53c.png",
+        "bytes":  16046
+    },
+    {
+        "source_path":  "portfolio/images/Logo_Cults_3D.webp",
+        "latest_commit":  "09c77475c98bdc9c7226933cdb3d99886dd867ed",
+        "blob_sha":  "8d366db08a4d3f09bf5885652ed5644ab7ff4c4c",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__Logo_Cults_3D-8d366db0.webp",
+        "bytes":  14556
+    },
+    {
+        "source_path":  "portfolio/images/PayPal.png",
+        "latest_commit":  "09c77475c98bdc9c7226933cdb3d99886dd867ed",
+        "blob_sha":  "27c895f3cbb40a5c3c259fe7acd6c286b94f40d5",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__PayPal-27c895f3.png",
+        "bytes":  62466
+    },
+    {
+        "source_path":  "portfolio/images/venmo-logo-1024x269.webp",
+        "latest_commit":  "09c77475c98bdc9c7226933cdb3d99886dd867ed",
+        "blob_sha":  "8a9ae04c8b3e97b8efcda2f062f4fd237aa9c802",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__venmo-logo-1024x269-8a9ae04c.webp",
+        "bytes":  31988
+    },
+    {
+        "source_path":  "portfolio/images/welcomeImages/1.jpeg",
+        "latest_commit":  "09c77475c98bdc9c7226933cdb3d99886dd867ed",
+        "blob_sha":  "6b417547a0cc3628c1c5e6a2d8c1ac60f6609e27",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__welcomeImages__1-6b417547.jpeg",
+        "bytes":  1703600
+    },
+    {
+        "source_path":  "portfolio/images/welcomeImages/2.jpeg",
+        "latest_commit":  "09c77475c98bdc9c7226933cdb3d99886dd867ed",
+        "blob_sha":  "4b706832199326bb1831e0365d43da87ac4ea1a8",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__welcomeImages__2-4b706832.jpeg",
+        "bytes":  1324664
+    },
+    {
+        "source_path":  "portfolio/images/welcomeImages/3.jpeg",
+        "latest_commit":  "09c77475c98bdc9c7226933cdb3d99886dd867ed",
+        "blob_sha":  "c5705264cabe43c8f18c615b7fe96f51dd712ac9",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__welcomeImages__3-c5705264.jpeg",
+        "bytes":  1161394
+    },
+    {
+        "source_path":  "portfolio/images/welcomeImages/4.jpeg",
+        "latest_commit":  "09c77475c98bdc9c7226933cdb3d99886dd867ed",
+        "blob_sha":  "7ae02069dfd750b980f3ac6013ac5f0d64372455",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__welcomeImages__4-7ae02069.jpeg",
+        "bytes":  1612180
+    },
+    {
+        "source_path":  "portfolio/images/welcomeImages/5.jpeg",
+        "latest_commit":  "09c77475c98bdc9c7226933cdb3d99886dd867ed",
+        "blob_sha":  "4b8dae31fd3b2dda2a0e62343bf228f49082a9bd",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__welcomeImages__5-4b8dae31.jpeg",
+        "bytes":  1156182
+    },
+    {
+        "source_path":  "portfolio/images/Youtube.png",
+        "latest_commit":  "09c77475c98bdc9c7226933cdb3d99886dd867ed",
+        "blob_sha":  "28b7b25537281ec63ba665dcdf9b8d1666447459",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__Youtube-28b7b255.png",
+        "bytes":  29116
+    },
+    {
+        "source_path":  "portfolio/images/YouTube_dark_logo_(2017).png",
+        "latest_commit":  "09c77475c98bdc9c7226933cdb3d99886dd867ed",
+        "blob_sha":  "4ddc6617e129c4581dfbfaa20cc72beb6f6def1f",
+        "recovered_file":  "C:\\Users\\colli\\OneDrive\\Projects\\portfolio\\public\\media\\legacy\\portfolio__images__YouTube_dark_logo__2017_-4ddc6617.png",
+        "bytes":  14062
+    }
+]

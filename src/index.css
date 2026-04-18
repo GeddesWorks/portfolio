@@ -3,8 +3,8 @@
 
 :root {
   font-family: "Outfit Variable", "Avenir Next", sans-serif;
-  color: #122033;
-  background: #f6f3ec;
+  color: #f5ebdd;
+  background: #121315;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -19,8 +19,9 @@ body {
   margin: 0;
   min-width: 320px;
   background:
-    linear-gradient(180deg, rgba(255, 250, 242, 0.75), rgba(246, 243, 236, 1)),
-    #f6f3ec;
+    radial-gradient(circle at top, rgba(240, 179, 93, 0.16), transparent 28%),
+    radial-gradient(circle at 82% 8%, rgba(111, 165, 255, 0.12), transparent 20%),
+    #121315;
 }
 
 a {
@@ -37,5 +38,5 @@ code {
 }
 
 ::selection {
-  background: rgba(22, 93, 255, 0.18);
+  background: rgba(240, 179, 93, 0.28);
 }

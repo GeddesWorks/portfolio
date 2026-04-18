@@ -1,0 +1,30 @@
+[
+  {
+    "label": "Legacy intro video (Firebase URL)",
+    "sourceUrl": "https://firebasestorage.googleapis.com/v0/b/geddesworks-394c1.appspot.com/o/IntroVideoHD.mp4?alt=media&token=3de30eb0-6372-4097-a86e-b9c7560cbd22",
+    "fileName": "intro-video-hd.firebase.mp4",
+    "fileId": "legacy-intro-video-firebase",
+    "contentType": "video/mp4"
+  },
+  {
+    "label": "Legacy intro video (Azure SAS URL)",
+    "sourceUrl": "https://geddesworks.blob.core.windows.net/videos/IntroVideoHD.mp4?sv=2023-01-03&st=2023-12-06T02%3A42%3A13Z&se=2023-12-07T02%3A57%3A13Z&sr=c&sp=r&sig=eTSlkA0ELgEvjic5%2B2XjTiWZy6TCUQ21IrSbWvf6N5k%3D",
+    "fileName": "intro-video-hd.azure-sas.mp4",
+    "fileId": "legacy-intro-video-azure-sas",
+    "contentType": "video/mp4"
+  },
+  {
+    "label": "Legacy intro video (Azure URL)",
+    "sourceUrl": "https://geddesworks.blob.core.windows.net/videos/IntroVideoHD.mp4",
+    "fileName": "intro-video-hd.azure.mp4",
+    "fileId": "legacy-intro-video-azure-hd",
+    "contentType": "video/mp4"
+  },
+  {
+    "label": "Legacy intro video (Azure URL low/slow variant)",
+    "sourceUrl": "https://geddesworks.blob.core.windows.net/videos/IntroVideo.mp4",
+    "fileName": "intro-video.azure.mp4",
+    "fileId": "legacy-intro-video-azure",
+    "contentType": "video/mp4"
+  }
+]
