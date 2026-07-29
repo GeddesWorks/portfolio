@@ -2,6 +2,37 @@
    are what stop Fraunces reading like a default serif, and they're used below. */
 @import '@fontsource-variable/fraunces/full.css';
 @import '@fontsource-variable/jetbrains-mono';
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Tailwind, driven off this site's tokens instead of its own.
+
+   `--color-*: initial` wipes the stock slate/gray/indigo palette so it can't be
+   reached for by accident — that palette plus `rounded-lg shadow-md` is most of
+   what makes Tailwind sites look like each other, and it's the thing we just
+   spent a redesign getting away from.
+
+   The colors below point at the light/dark variables further down rather than at
+   literals, so `bg-paper` and `text-ink` follow prefers-color-scheme on their own
+   and you don't have to write `dark:` on everything.
+   --------------------------------------------------------------------------- */
+
+@theme {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-paper: var(--paper);
+  --color-paper-sunk: var(--paper-sunk);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-rule: var(--rule);
+  --color-accent: var(--accent);
+
+  --font-serif: var(--serif);
+  --font-mono: var(--mono);
+}
 
 /* ---------------------------------------------------------------------------
    Palette pulled off the print photos: warm concrete, river-rock grey, and a
