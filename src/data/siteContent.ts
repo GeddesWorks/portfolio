@@ -2,8 +2,12 @@
  * All of the site's words and links live here.
  *
  * This is a hub, not a portfolio. Everything below should be something you can
- * actually click through to. If a thing has no link yet, put it in `alsoGoingOn`
+ * actually click through to. If a thing has no link yet, put it in `offline`
  * as a sentence instead of leaving an empty slot on the page.
+ *
+ * Photos work the same way: a `Photo` with no `src` renders nothing in a build.
+ * Its `shotNote` shows only while `npm run dev` is running, as a reminder of what
+ * belongs there — so the shot list lives next to the layout, never on the site.
  */
 
 export interface Link {
@@ -21,12 +25,24 @@ export interface Entry {
   links: Link[];
 }
 
+export interface Photo {
+  id: string;
+  /** Leave undefined until the photo exists. Nothing renders without it. */
+  src?: string;
+  alt: string;
+  /** Dev-only reminder of what this frame should contain. Never shipped. */
+  shotNote?: string;
+}
+
 export interface Shelf {
   id: string;
   /** Shown in the jump nav. */
   short: string;
   title: string;
   entries: Entry[];
+  /** Evidence for the shelf, shown after its entries. */
+  photos?: Photo[];
+  photoCaption?: string;
 }
 
 /** A shelf's worth of things that exist but have nothing to click. */
@@ -35,12 +51,8 @@ export interface ProseSection {
   short: string;
   title: string;
   paragraphs: string[];
-}
-
-export interface Photo {
-  id: string;
-  src?: string;
-  alt: string;
+  photos?: Photo[];
+  photoCaption?: string;
 }
 
 const appwriteEndpoint = import.meta.env.VITE_APPWRITE_ENDPOINT?.replace(/\/$/, '');
@@ -69,7 +81,7 @@ export const masthead = {
 
 export const intro = [
   "I'm Collin. I write software, run more servers than this house strictly needs, and rebuild things most people would hand to a shop.",
-  'Most of what I make joins two of those together. A Raspberry Pi photographs the 3D printer. A box in the rack transcodes the movies and hosts game night. The interesting part is almost always the seam — where the software meets the thing it is pointed at.',
+  'Most of what I make joins two of those together. A Raspberry Pi photographs the 3D printer. A box in the rack hosts game night. The interesting part is almost always the seam — where the software meets the thing it is pointed at.',
   'This page is an index. The actual work lives somewhere else, so here are the doors.',
 ];
 
@@ -77,6 +89,17 @@ export const intro = [
  * Change this when it stops being true. A dated line is the cheapest way to
  * prove a person still maintains the site.
  */
+/**
+ * The thesis image: one frame that shows software pointed at a physical thing.
+ * Everything else on the page is an argument for what this photo already says.
+ */
+export const heroPhoto: Photo = {
+  id: 'bambucam-rig',
+  alt: 'The Bambu A1 mid-print with the Nikon D40 on a tripod beside it and the Raspberry Pi wired in',
+  shotNote:
+    'The A1 mid-print, the D40 on its tripod, and the Pi in one frame. Shoot it a little wide and slightly off-axis so the cabling reads. Landscape, ~2000px, same warm daylight as the dragon shots.',
+};
+
 export const now = {
   updated: 'July 2026',
   lines: [
@@ -99,17 +122,6 @@ export const shelves: Shelf[] = [
         links: [
           { label: 'quotedump.com', href: 'https://quotedump.com' },
           { label: 'quotedump.app', href: 'https://quotedump.app' },
-        ],
-      },
-      {
-        id: 'plexlists',
-        name: 'Plex List Picker',
-        blurb:
-          'Loads a public Plex share list, lets you filter it to death, then picks something at random so nobody has to decide.',
-        meta: 'react · appwrite function · tmdb',
-        links: [
-          { label: 'Open it', href: 'https://apps.geddesworks.com/plexlists/' },
-          { label: 'Source', href: 'https://github.com/GeddesWorks/plexlisthelper' },
         ],
       },
       {
@@ -152,6 +164,48 @@ export const shelves: Shelf[] = [
         links: [{ label: 'Shop', href: 'https://geddesworks.etsy.com' }],
       },
     ],
+    /* Sitting under the shelf they belong to, these are evidence. Up at the top
+       of the page they were only decoration. */
+    photos: [
+      {
+        id: 'dragon-green',
+        src: appwriteFileView('legacy-welcome-1', '/media/welcome-1.jpeg'),
+        alt: 'Translucent green articulated dragon resting on river rocks',
+      },
+      {
+        id: 'dragon-salmon',
+        src: appwriteFileView('legacy-welcome-2', '/media/welcome-2.jpeg'),
+        alt: 'Salmon-pink spiked articulated dragon coiled over river rocks',
+      },
+      {
+        id: 'dragon-pink',
+        src: appwriteFileView('legacy-welcome-3', '/media/welcome-3.jpeg'),
+        alt: 'Pink articulated dragon draped across a stack of river rocks',
+      },
+      {
+        id: 'dragon-blue',
+        src: appwriteFileView('legacy-welcome-4', '/media/welcome-4.jpeg'),
+        alt: 'Translucent blue crystalline dragon perched on river rocks',
+      },
+      {
+        id: 'dragon-magenta',
+        src: appwriteFileView('legacy-welcome-5', '/media/welcome-5.jpeg'),
+        alt: 'Pink and violet winged dragon standing on river rocks',
+      },
+      {
+        id: 'outboard',
+        alt: 'The Honda BF115A2 outboard opened up with parts laid out',
+        shotNote:
+          'The BF115A2 with the head off and parts laid out in order. Nothing says "learns the whole system" faster. Landscape, ~1600px.',
+      },
+      {
+        id: 'bench',
+        alt: 'The workbench with a print, tools and an in-progress project on it',
+        shotNote:
+          'The bench mid-project — tools out, something half-built. Establishes the place the rest of this happens.',
+      },
+    ],
+    photoCaption: 'Print-in-place dragons, various filaments, shot on the concrete out back.',
   },
   {
     id: 'games',
@@ -186,21 +240,20 @@ export const offline: ProseSection = {
   short: 'No links',
   title: "Things that don't have links",
   paragraphs: [
-    'GeddesWorksHome is a multi-node Proxmox cluster in the house — ZFS underneath, a stack of VMs and containers on top, a GPU passed through so Plex stops thinking about it, and whatever game server we are currently playing. Most of what is listed above leans on it somewhere. The rest of the house runs on the same habit: a Steam Deck and Moonlight instead of a console, and a home assistant called JARVIS that I keep rewriting in C#, with an ESP32 audio board for ears.',
+    'GeddesWorksHome is a multi-node Proxmox cluster in the house — ZFS underneath, a stack of VMs and containers on top, a GPU passed through to the one box that needs it, and whatever game server we are currently playing. Most of what is listed above leans on it somewhere. The rest of the house runs on the same habit: a Steam Deck and Moonlight instead of a console, and a home assistant called JARVIS that I keep rewriting in C#, with an ESP32 audio board for ears.',
     'Away from a keyboard I have been elbow-deep in a Honda BF115A2 outboard — compression tests, thermostats, valves, a high-pressure fuel pump, and eventually a head gasket — which pushes a 22-foot pontoon around. There is a lifted Tundra that tows it, and a shop where the woodworking, the printer and a half-drawn truck-bed drawer all compete for the same bench.',
     'None of that has a URL, which is the point of putting it here rather than pretending it is a project.',
   ],
+  photos: [
+    {
+      id: 'rack',
+      alt: 'The GeddesWorksHome rack with the nodes and cabling visible',
+      shotNote:
+        'The rack with the door open. Cables and blinkenlights read instantly and do the work of a paragraph. Shoot it dim, let the LEDs carry it — this is the one photo that can break from the daylight palette.',
+    },
+  ],
+  photoCaption: 'GeddesWorksHome. Louder than it looks.',
 };
-
-export const photos: Photo[] = [
-  { id: 'dragon-green', src: appwriteFileView('legacy-welcome-1', '/media/welcome-1.jpeg'), alt: 'Translucent green articulated dragon resting on river rocks' },
-  { id: 'dragon-salmon', src: appwriteFileView('legacy-welcome-2', '/media/welcome-2.jpeg'), alt: 'Salmon-pink spiked articulated dragon coiled over river rocks' },
-  { id: 'dragon-pink', src: appwriteFileView('legacy-welcome-3', '/media/welcome-3.jpeg'), alt: 'Pink articulated dragon draped across a stack of river rocks' },
-  { id: 'dragon-blue', src: appwriteFileView('legacy-welcome-4', '/media/welcome-4.jpeg'), alt: 'Translucent blue crystalline dragon perched on river rocks' },
-  { id: 'dragon-magenta', src: appwriteFileView('legacy-welcome-5', '/media/welcome-5.jpeg'), alt: 'Pink and violet winged dragon standing on river rocks' },
-];
-
-export const photoCaption = 'Print-in-place dragons, various filaments, shot on the concrete out back.';
 
 export const elsewhere: Link[] = [
   { label: 'GitHub', href: 'https://github.com/GeddesWorks' },

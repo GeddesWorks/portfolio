@@ -278,13 +278,66 @@ a:focus-visible {
   color: var(--rule);
 }
 
+/* --- hero photo ------------------------------------------------------------ */
+
+/* The one image that gets to be wider than everything else. */
+.hero {
+  --bleed: clamp(0px, (100vw - var(--measure) - 5rem) / 2, 11rem);
+  margin: 3rem calc(-1 * var(--bleed)) 0;
+}
+
+.hero img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  border-radius: 2px;
+  background: var(--paper-sunk);
+  box-shadow:
+    0 0 0 7px var(--paper),
+    0 0 0 8px var(--rule),
+    0 18px 40px -24px rgba(0, 0, 0, 0.6);
+}
+
+/* --- shot notes (dev only) ------------------------------------------------- */
+
+.shot-note {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  min-height: 9rem;
+  padding: 1.25rem 1.4rem;
+  border: 1px dashed var(--rule);
+  border-radius: 3px;
+  background: var(--paper-sunk);
+}
+
+.shot-note p {
+  margin: 0;
+  color: var(--ink-faint);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.hero.shot-note {
+  min-height: 12rem;
+}
+
+.strip .shot-note {
+  height: 100%;
+  min-height: 0;
+  aspect-ratio: 16 / 10;
+}
+
 /* --- photo strip ----------------------------------------------------------- */
 
 /* The photos run wider than the text column and scroll off both edges, so the
    page has one place where it stops behaving like a document. */
 .strip-wrap {
   --bleed: clamp(0px, (100vw - var(--measure) - 5rem) / 2, 11rem);
-  margin: 3.5rem calc(-1 * var(--bleed)) 0;
+  margin: 2.75rem calc(-1 * var(--bleed)) 0;
 }
 
 .strip {

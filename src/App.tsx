@@ -2,17 +2,24 @@ import {
   brandMedia,
   colophon,
   elsewhere,
+  heroPhoto,
   intro,
   masthead,
   now,
   offline,
-  photoCaption,
-  photos,
   shelves,
   type Entry,
+  type Photo,
   type ProseSection,
   type Shelf,
 } from './data/siteContent.ts';
+
+/**
+ * Photos that don't exist yet show their brief while `npm run dev` is running and
+ * disappear entirely from a build — so the shot list sits next to the layout it
+ * describes without ever becoming an "Open slot" on the live site.
+ */
+const SHOW_SHOT_NOTES = import.meta.env.DEV;
 
 /**
  * Small deterministic hash so the "hand placed" details — photo rotations, rule
@@ -71,6 +78,60 @@ function Rule({ seed }: { seed: string }) {
   );
 }
 
+function visiblePhotos(photos: Photo[] = []) {
+  return photos.filter((photo) => photo.src || (SHOW_SHOT_NOTES && photo.shotNote));
+}
+
+function PhotoFrame({ photo }: { photo: Photo }) {
+  return (
+    <figure style={{ transform: `rotate(${jitter(photo.id, 1, -2.2, 2.2).toFixed(2)}deg)` }}>
+      {photo.src ? (
+        <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
+      ) : (
+        <div className="shot-note">
+          <span className="mono">Shot list</span>
+          <p>{photo.shotNote}</p>
+        </div>
+      )}
+    </figure>
+  );
+}
+
+function PhotoStrip({ photos, caption }: { photos?: Photo[]; caption?: string }) {
+  const shown = visiblePhotos(photos);
+  if (shown.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="strip-wrap">
+      <div className="strip">
+        {shown.map((photo) => (
+          <PhotoFrame key={photo.id} photo={photo} />
+        ))}
+      </div>
+      {caption ? <p className="strip-caption">{caption}</p> : null}
+    </div>
+  );
+}
+
+function HeroPhoto() {
+  if (!heroPhoto.src) {
+    return SHOW_SHOT_NOTES ? (
+      <div className="hero shot-note">
+        <span className="mono">Shot list — hero</span>
+        <p>{heroPhoto.shotNote}</p>
+      </div>
+    ) : null;
+  }
+
+  return (
+    <figure className="hero">
+      <img src={heroPhoto.src} alt={heroPhoto.alt} decoding="async" />
+    </figure>
+  );
+}
+
 function EntryRow({ entry }: { entry: Entry }) {
   return (
     <div className="entry">
@@ -105,6 +166,7 @@ function ShelfSection({ shelf }: { shelf: Shelf }) {
       ))}
 
       <Rule seed={`${shelf.id}-end`} />
+      <PhotoStrip photos={shelf.photos} caption={shelf.photoCaption} />
     </section>
   );
 }
@@ -118,6 +180,8 @@ function ProseShelf({ section }: { section: ProseSection }) {
       {section.paragraphs.map((paragraph) => (
         <p key={paragraph}>{paragraph}</p>
       ))}
+
+      <PhotoStrip photos={section.photos} caption={section.photoCaption} />
     </section>
   );
 }
@@ -149,6 +213,8 @@ function App() {
           ))}
         </div>
 
+        <HeroPhoto />
+
         <aside className="now">
           <span className="mono">Right now — {now.updated}</span>
           <ul>
@@ -167,20 +233,6 @@ function App() {
             ))}
           </ul>
         </nav>
-
-        <div className="strip-wrap">
-          <div className="strip">
-            {photos.map((photo) => (
-              <figure
-                key={photo.id}
-                style={{ transform: `rotate(${jitter(photo.id, 1, -2.2, 2.2).toFixed(2)}deg)` }}
-              >
-                <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
-              </figure>
-            ))}
-          </div>
-          <p className="strip-caption">{photoCaption}</p>
-        </div>
 
         {shelves.map((shelf) => (
           <ShelfSection key={shelf.id} shelf={shelf} />
