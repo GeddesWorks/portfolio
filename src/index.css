@@ -446,16 +446,18 @@ a:focus-visible {
   letter-spacing: 0;
 }
 
-/* --- also / elsewhere / colophon ------------------------------------------- */
-
-.also {
-  margin-top: 3.5rem;
-}
-
-.also p {
-  margin: 0.6rem 0 0;
+/* Same rhythm as a shelf, but the items are sentences rather than links. */
+.prose-shelf p {
+  margin: 1.5rem 0 0;
   color: var(--ink-soft);
+  line-height: 1.65;
 }
+
+.prose-shelf p:last-child {
+  color: var(--ink-faint);
+}
+
+/* --- elsewhere / colophon --------------------------------------------------- */
 
 .elsewhere {
   margin-top: 3.5rem;

@@ -1,15 +1,16 @@
 import {
-  alsoGoingOn,
   brandMedia,
   colophon,
   elsewhere,
   intro,
   masthead,
   now,
+  offline,
   photoCaption,
   photos,
   shelves,
   type Entry,
+  type ProseSection,
   type Shelf,
 } from './data/siteContent.ts';
 
@@ -108,6 +109,19 @@ function ShelfSection({ shelf }: { shelf: Shelf }) {
   );
 }
 
+function ProseShelf({ section }: { section: ProseSection }) {
+  return (
+    <section className="shelf prose-shelf" id={section.id}>
+      <h2>{section.title}</h2>
+      <Rule seed={`${section.id}-0`} />
+
+      {section.paragraphs.map((paragraph) => (
+        <p key={paragraph}>{paragraph}</p>
+      ))}
+    </section>
+  );
+}
+
 function App() {
   return (
     <>
@@ -146,9 +160,9 @@ function App() {
 
         <nav aria-label="Sections">
           <ul className="jump">
-            {shelves.map((shelf) => (
-              <li key={shelf.id}>
-                <a href={`#${shelf.id}`}>{shelf.short}</a>
+            {[...shelves, offline].map((section) => (
+              <li key={section.id}>
+                <a href={`#${section.id}`}>{section.short}</a>
               </li>
             ))}
           </ul>
@@ -172,10 +186,7 @@ function App() {
           <ShelfSection key={shelf.id} shelf={shelf} />
         ))}
 
-        <section className="also">
-          <span className="mono">Also going on</span>
-          <p>{alsoGoingOn}</p>
-        </section>
+        <ProseShelf section={offline} />
 
         <section className="elsewhere">
           <span className="mono">Elsewhere</span>

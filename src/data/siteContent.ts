@@ -29,6 +29,14 @@ export interface Shelf {
   entries: Entry[];
 }
 
+/** A shelf's worth of things that exist but have nothing to click. */
+export interface ProseSection {
+  id: string;
+  short: string;
+  title: string;
+  paragraphs: string[];
+}
+
 export interface Photo {
   id: string;
   src?: string;
@@ -56,12 +64,12 @@ export const masthead = {
   wordmark: 'GeddesWorks',
   name: 'Collin Geddes',
   /** Keep this to one line. It sits under the wordmark in mono. */
-  strapline: 'software · 3D printing · things that plug in',
+  strapline: 'software · homelab · 3D printing · engines',
 };
 
 export const intro = [
-  "I'm Collin. I build web apps, mod games I like too much, and run a 3D printer that photographs itself.",
-  'Most of it is small, most of it is for me or for someone I know, and a good amount of it is held together by a Raspberry Pi and stubbornness.',
+  "I'm Collin. I write software, run more servers than this house strictly needs, and rebuild things most people would hand to a shop.",
+  'Most of what I make joins two of those together. A Raspberry Pi photographs the 3D printer. A box in the rack transcodes the movies and hosts game night. The interesting part is almost always the seam — where the software meets the thing it is pointed at.',
   'This page is an index. The actual work lives somewhere else, so here are the doors.',
 ];
 
@@ -170,11 +178,19 @@ export const shelves: Shelf[] = [
 ];
 
 /**
- * Real projects that have nothing worth linking to yet. Prose, not empty cards —
- * an unfinished sentence is honest, an unfinished card is filler.
+ * Real work that has nothing to click. Prose, not empty cards — an unfinished
+ * sentence is honest, an unfinished card is filler.
  */
-export const alsoGoingOn =
-  'A few things live only on hardware in my house: JARVIS, a home assistant I keep rewriting in C#, and the ESP32 audio board that acts as its ears. There is also a pile of half-finished ESP boards, LED controllers and keyboard firmware that never made it to a README.';
+export const offline: ProseSection = {
+  id: 'offline',
+  short: 'No links',
+  title: "Things that don't have links",
+  paragraphs: [
+    'GeddesWorksHome is a multi-node Proxmox cluster in the house — ZFS underneath, a stack of VMs and containers on top, a GPU passed through so Plex stops thinking about it, and whatever game server we are currently playing. Most of what is listed above leans on it somewhere. The rest of the house runs on the same habit: a Steam Deck and Moonlight instead of a console, and a home assistant called JARVIS that I keep rewriting in C#, with an ESP32 audio board for ears.',
+    'Away from a keyboard I have been elbow-deep in a Honda BF115A2 outboard — compression tests, thermostats, valves, a high-pressure fuel pump, and eventually a head gasket — which pushes a 22-foot pontoon around. There is a lifted Tundra that tows it, and a shop where the woodworking, the printer and a half-drawn truck-bed drawer all compete for the same bench.',
+    'None of that has a URL, which is the point of putting it here rather than pretending it is a project.',
+  ],
+};
 
 export const photos: Photo[] = [
   { id: 'dragon-green', src: appwriteFileView('legacy-welcome-1', '/media/welcome-1.jpeg'), alt: 'Translucent green articulated dragon resting on river rocks' },
