@@ -280,16 +280,19 @@ a:focus-visible {
 
 /* --- hero photo ------------------------------------------------------------ */
 
-/* The one image that gets to be wider than everything else. */
+/* Wider than the text column, but deliberately not a full-viewport takeover —
+   this is an anchor image on a text page, not a landing-page hero. */
 .hero {
-  --bleed: clamp(0px, (100vw - var(--measure) - 5rem) / 2, 11rem);
+  --bleed: clamp(0px, (100vw - var(--measure) - 5rem) / 2, 6rem);
   margin: 3rem calc(-1 * var(--bleed)) 0;
 }
 
 .hero img {
   display: block;
   width: 100%;
-  aspect-ratio: 2 / 1;
+  /* Close to the source ratio, so the crop takes almost nothing. */
+  aspect-ratio: 16 / 9;
+  max-height: 52vh;
   object-fit: cover;
   border-radius: 2px;
   background: var(--paper-sunk);
@@ -357,10 +360,6 @@ a:focus-visible {
   );
 }
 
-.strip-caption {
-  margin-inline: var(--bleed);
-}
-
 .strip::-webkit-scrollbar {
   display: none;
 }
@@ -394,11 +393,23 @@ a:focus-visible {
   transform: rotate(0deg) scale(1.015);
 }
 
-.strip-caption {
+figcaption {
   margin: 1.4rem 0 0;
   color: var(--ink-faint);
   font-size: 0.95rem;
   font-style: italic;
+  text-wrap: pretty;
+}
+
+/* Per-photo captions sit tight under their own frame, not under the whole strip. */
+.strip figcaption {
+  margin-top: 0.85rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.hero figcaption {
+  margin-inline: var(--bleed);
 }
 
 /* --- shelves --------------------------------------------------------------- */

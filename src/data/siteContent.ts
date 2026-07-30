@@ -8,6 +8,17 @@
  * Photos work the same way: a `Photo` with no `src` renders nothing in a build.
  * Its `shotNote` shows only while `npm run dev` is running, as a reminder of what
  * belongs there — so the shot list lives next to the layout, never on the site.
+ *
+ * PENDING: four `src` paths below are wired but the files aren't in the repo yet.
+ * Drop these into `public/media/` and they light up — no code change needed:
+ *
+ *   pontoon.jpeg            the dusk boat-ramp shot          (hero)
+ *   print-shelf.jpeg        the printer + server shelving    (garage)
+ *   couch-kart-built.jpeg   the go-kart couch parked         (no links)
+ *   couch-kart-riding.jpeg  the go-kart couch in motion      (no links)
+ *
+ * Until then those frames come up empty. Nothing user-facing breaks: the deploy
+ * workflow only runs on `main`.
  */
 
 export interface Link {
@@ -30,6 +41,10 @@ export interface Photo {
   /** Leave undefined until the photo exists. Nothing renders without it. */
   src?: string;
   alt: string;
+  /** Shown under this photo. Photos that need no comment simply don't get one. */
+  caption?: string;
+  /** `object-position` — use it when a centre crop would cut the subject. */
+  focus?: string;
   /** Dev-only reminder of what this frame should contain. Never shipped. */
   shotNote?: string;
 }
@@ -42,7 +57,6 @@ export interface Shelf {
   entries: Entry[];
   /** Evidence for the shelf, shown after its entries. */
   photos?: Photo[];
-  photoCaption?: string;
 }
 
 /** A shelf's worth of things that exist but have nothing to click. */
@@ -52,7 +66,6 @@ export interface ProseSection {
   title: string;
   paragraphs: string[];
   photos?: Photo[];
-  photoCaption?: string;
 }
 
 const appwriteEndpoint = import.meta.env.VITE_APPWRITE_ENDPOINT?.replace(/\/$/, '');
@@ -86,20 +99,22 @@ export const intro = [
 ];
 
 /**
+ * The thesis image. Not a computer, on purpose — the intro claims I rebuild
+ * things most people would hand to a shop, and this is the receipt.
+ */
+export const heroPhoto: Photo = {
+  id: 'pontoon',
+  src: '/media/pontoon.jpeg',
+  alt: 'Collin standing on his Voyager pontoon at a boat ramp at dusk, green LED strips lit along the hull',
+  caption: 'The pontoon at the ramp, back in the water after I rebuilt the motor.',
+  focus: 'center 42%',
+  shotNote: 'Drop the dusk boat-ramp photo at public/media/pontoon.jpeg, ~2000px wide.',
+};
+
+/**
  * Change this when it stops being true. A dated line is the cheapest way to
  * prove a person still maintains the site.
  */
-/**
- * The thesis image: one frame that shows software pointed at a physical thing.
- * Everything else on the page is an argument for what this photo already says.
- */
-export const heroPhoto: Photo = {
-  id: 'bambucam-rig',
-  alt: 'The Bambu A1 mid-print with the Nikon D40 on a tripod beside it and the Raspberry Pi wired in',
-  shotNote:
-    'The A1 mid-print, the D40 on its tripod, and the Pi in one frame. Shoot it a little wide and slightly off-axis so the cabling reads. Landscape, ~2000px, same warm daylight as the dragon shots.',
-};
-
 export const now = {
   updated: 'July 2026',
   lines: [
@@ -168,9 +183,20 @@ export const shelves: Shelf[] = [
        of the page they were only decoration. */
     photos: [
       {
+        id: 'print-shelf',
+        src: '/media/print-shelf.jpeg',
+        alt: 'Wire shelving holding two Bambu A1 printers, a resin printer, filament spools and a stack of servers',
+        caption: 'Two A1s, a resin printer, and the servers that ended up on the shelf underneath.',
+        // Square source in a 16:10 frame — bias down so the server stack survives.
+        focus: 'center 58%',
+        shotNote: 'Drop the printer-shelf photo at public/media/print-shelf.jpeg, ~1400px wide.',
+      },
+      {
         id: 'dragon-green',
         src: appwriteFileView('legacy-welcome-1', '/media/welcome-1.jpeg'),
         alt: 'Translucent green articulated dragon resting on river rocks',
+        // Captions the run of dragons that follows, so the rest need no label.
+        caption: 'Print-in-place dragons, various filaments, shot on the concrete out back.',
       },
       {
         id: 'dragon-salmon',
@@ -192,20 +218,7 @@ export const shelves: Shelf[] = [
         src: appwriteFileView('legacy-welcome-5', '/media/welcome-5.jpeg'),
         alt: 'Pink and violet winged dragon standing on river rocks',
       },
-      {
-        id: 'outboard',
-        alt: 'The Honda BF115A2 outboard opened up with parts laid out',
-        shotNote:
-          'The BF115A2 with the head off and parts laid out in order. Nothing says "learns the whole system" faster. Landscape, ~1600px.',
-      },
-      {
-        id: 'bench',
-        alt: 'The workbench with a print, tools and an in-progress project on it',
-        shotNote:
-          'The bench mid-project — tools out, something half-built. Establishes the place the rest of this happens.',
-      },
     ],
-    photoCaption: 'Print-in-place dragons, various filaments, shot on the concrete out back.',
   },
   {
     id: 'games',
@@ -241,18 +254,32 @@ export const offline: ProseSection = {
   title: "Things that don't have links",
   paragraphs: [
     'GeddesWorksHome is a multi-node Proxmox cluster in the house — ZFS underneath, a stack of VMs and containers on top, a GPU passed through to the one box that needs it, and whatever game server we are currently playing. Most of what is listed above leans on it somewhere. The rest of the house runs on the same habit: a Steam Deck and Moonlight instead of a console, and a home assistant called JARVIS that I keep rewriting in C#, with an ESP32 audio board for ears.',
-    'Away from a keyboard I have been elbow-deep in a Honda BF115A2 outboard — compression tests, thermostats, valves, a high-pressure fuel pump, and eventually a head gasket — which pushes a 22-foot pontoon around. There is a lifted Tundra that tows it, and a shop where the woodworking, the printer and a half-drawn truck-bed drawer all compete for the same bench.',
+    'Away from a keyboard I have been elbow-deep in a Honda BF115A2 outboard — compression tests, thermostats, valves, a high-pressure fuel pump, and eventually a head gasket — which now pushes a 22-foot pontoon around. Before that, a leather couch went onto a wooden chassis with a generator engine and a set of four-wheeler parts under it. It drives. There is also a lifted Tundra that tows the boat, and a shop where the woodworking, the printers and a half-drawn truck-bed drawer all compete for the same bench.',
     'None of that has a URL, which is the point of putting it here rather than pretending it is a project.',
   ],
   photos: [
     {
-      id: 'rack',
-      alt: 'The GeddesWorksHome rack with the nodes and cabling visible',
+      id: 'couch-kart-built',
+      src: '/media/couch-kart-built.jpeg',
+      alt: 'A leather couch mounted on a wooden go-kart chassis with handlebars, work lights and knobby wheels, parked at night',
+      caption: 'Generator engine, four-wheeler parts, and a pair of work lights bolted to the front.',
+      shotNote: 'Drop the parked go-kart couch photo at public/media/couch-kart-built.jpeg, ~1400px wide.',
+    },
+    {
+      id: 'couch-kart-riding',
+      src: '/media/couch-kart-riding.jpeg',
+      alt: 'Three people sitting on the couch go-kart as it drives down a street at night, belt drive and engine visible',
+      caption: 'It carries more people than it has any business carrying.',
+      shotNote: 'Drop the go-kart-in-motion photo at public/media/couch-kart-riding.jpeg, ~1400px wide.',
+    },
+    {
+      id: 'outboard',
+      alt: 'The Honda BF115A2 outboard opened up with parts laid out',
+      caption: 'The BF115A2, mid-argument.',
       shotNote:
-        'The rack with the door open. Cables and blinkenlights read instantly and do the work of a paragraph. Shoot it dim, let the LEDs carry it — this is the one photo that can break from the daylight palette.',
+        'Optional, but the best one still missing: the BF115A2 with the head off and parts laid out in order. Nothing says "learns the whole system" faster.',
     },
   ],
-  photoCaption: 'GeddesWorksHome. Louder than it looks.',
 };
 
 export const elsewhere: Link[] = [

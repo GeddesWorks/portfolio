@@ -40,11 +40,6 @@ function jitter(key: string, salt: number, min: number, max: number) {
 }
 
 /**
- * A ruled line that isn't quite straight. Four control points, each nudged a
- * fraction of a pixel off the baseline, so the separators read as drawn rather
- * than as a 1px CSS border repeated forty times.
- */
-/**
  * A ruled line that isn't quite straight and doesn't quite start where the last
  * one did. Stretched across ~1000px the wobble is almost subliminal, so the tell
  * is the ragged ends — the same thing that gives away a line drawn against a
@@ -83,21 +78,32 @@ function visiblePhotos(photos: Photo[] = []) {
 }
 
 function PhotoFrame({ photo }: { photo: Photo }) {
+  // Tilt the photo, not the figure — otherwise the caption tips over with it.
+  const tilt = `rotate(${jitter(photo.id, 1, -2.2, 2.2).toFixed(2)}deg)`;
+
   return (
-    <figure style={{ transform: `rotate(${jitter(photo.id, 1, -2.2, 2.2).toFixed(2)}deg)` }}>
+    <figure>
       {photo.src ? (
-        <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
+        <img
+          src={photo.src}
+          alt={photo.alt}
+          style={{ transform: tilt, objectPosition: photo.focus }}
+          loading="lazy"
+          decoding="async"
+        />
       ) : (
-        <div className="shot-note">
+        <div className="shot-note" style={{ transform: tilt }}>
           <span className="mono">Shot list</span>
           <p>{photo.shotNote}</p>
         </div>
       )}
+
+      {photo.src && photo.caption ? <figcaption>{photo.caption}</figcaption> : null}
     </figure>
   );
 }
 
-function PhotoStrip({ photos, caption }: { photos?: Photo[]; caption?: string }) {
+function PhotoStrip({ photos }: { photos?: Photo[] }) {
   const shown = visiblePhotos(photos);
   if (shown.length === 0) {
     return null;
@@ -110,7 +116,6 @@ function PhotoStrip({ photos, caption }: { photos?: Photo[]; caption?: string })
           <PhotoFrame key={photo.id} photo={photo} />
         ))}
       </div>
-      {caption ? <p className="strip-caption">{caption}</p> : null}
     </div>
   );
 }
@@ -127,7 +132,13 @@ function HeroPhoto() {
 
   return (
     <figure className="hero">
-      <img src={heroPhoto.src} alt={heroPhoto.alt} decoding="async" />
+      <img
+        src={heroPhoto.src}
+        alt={heroPhoto.alt}
+        style={heroPhoto.focus ? { objectPosition: heroPhoto.focus } : undefined}
+        decoding="async"
+      />
+      {heroPhoto.caption ? <figcaption>{heroPhoto.caption}</figcaption> : null}
     </figure>
   );
 }
@@ -166,7 +177,7 @@ function ShelfSection({ shelf }: { shelf: Shelf }) {
       ))}
 
       <Rule seed={`${shelf.id}-end`} />
-      <PhotoStrip photos={shelf.photos} caption={shelf.photoCaption} />
+      <PhotoStrip photos={shelf.photos} />
     </section>
   );
 }
@@ -181,7 +192,7 @@ function ProseShelf({ section }: { section: ProseSection }) {
         <p key={paragraph}>{paragraph}</p>
       ))}
 
-      <PhotoStrip photos={section.photos} caption={section.photoCaption} />
+      <PhotoStrip photos={section.photos} />
     </section>
   );
 }
