@@ -55,3 +55,31 @@ grain sits over the whole page.
 `src/data/siteContent.ts` still resolves images through Appwrite when
 `VITE_APPWRITE_ENDPOINT` and `VITE_APPWRITE_PROJECT_ID` are set, and falls back to
 the local `/media/...` copies otherwise. See `PASSOFF.md`.
+
+### Adding a photo
+
+Never copy a phone photo straight in. Run it through the prep script, which
+resizes it, paints over anything identifying, and re-encodes without camera
+metadata:
+
+```bash
+python3 scripts/prepare-photo.py ~/IMG_1234.jpg public/media/thing.jpeg --width 1400
+```
+
+`--cover x1,y1,x2,y2` paints out a region, given as fractions of the image so the
+numbers hold at any source resolution. Repeat it for several regions. Use it for
+registration numbers, plates, house numbers — anything readable. The pixels are
+replaced with a colour sampled from the surrounding surface, so the redaction is
+invisible and, unlike a blur or a CSS overlay, cannot be undone.
+
+### Metadata
+
+EXIF, XMP, IPTC and PNG text chunks are stripped from every image in the repo:
+
+```bash
+npm run media:check   # report anything carrying metadata (CI runs this)
+npm run media:strip   # remove it, losslessly — no re-encode, pixels unchanged
+```
+
+CI fails the deploy if this check doesn't pass. Camera metadata is invisible on
+the page, so nothing that only reviews the site will ever catch a stray GPS tag.

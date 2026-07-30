@@ -27,6 +27,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Fails the deploy if any image carries EXIF, XMP, IPTC or PNG text
+      # chunks. Camera metadata is invisible on the page, so a review that only
+      # looks at the site will never catch a stray GPS tag.
+      - name: Check images for metadata
+        run: npm run media:check
+
       - name: Build site
         run: npm run build
 

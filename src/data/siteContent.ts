@@ -10,12 +10,19 @@
  * belongs there — so the shot list lives next to the layout, never on the site.
  *
  * PENDING: four `src` paths below are wired but the files aren't in the repo yet.
- * Drop these into `public/media/` and they light up — no code change needed:
+ * Run each raw photo through `scripts/prepare-photo.py` — it resizes, paints out
+ * anything identifying and drops all camera metadata — then the frames light up
+ * with no code change:
  *
  *   pontoon.jpeg            the dusk boat-ramp shot          (hero)
  *   print-shelf.jpeg        the printer + server shelving    (garage)
  *   couch-kart-built.jpeg   the go-kart couch parked         (no links)
  *   couch-kart-riding.jpeg  the go-kart couch in motion      (no links)
+ *
+ * The pontoon needs its registration number covered:
+ *
+ *   python3 scripts/prepare-photo.py <raw> public/media/pontoon.jpeg \
+ *       --width 2000 --cover 0.424,0.492,0.590,0.558
  *
  * Until then those frames come up empty. Nothing user-facing breaks: the deploy
  * workflow only runs on `main`.

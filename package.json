@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "assets:migrate": "node ./scripts/migrate-firebase-assets.mjs"
+    "assets:migrate": "node ./scripts/migrate-firebase-assets.mjs",
+    "media:check": "node ./scripts/strip-image-metadata.mjs --check",
+    "media:strip": "node ./scripts/strip-image-metadata.mjs"
   },
   "dependencies": {
     "@fontsource-variable/fraunces": "^5.2.8",
